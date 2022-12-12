@@ -3,7 +3,8 @@
   (:require
    [aoc22-clj.day01 :as d01]
    [aoc22-clj.day02 :as d02]
-   [aoc22-clj.day03 :as d03]))
+   [aoc22-clj.day03 :as d03]
+   [aoc22-clj.day04 :as d04]
 
 (defn -main
   ([] (.println *err* "Usage: lein run day.part\nEx (Day 3 Part 1): lein run 3.1"))
@@ -15,4 +16,6 @@
      "2.2" (println (d02/p2))
      "3.1" (println (d03/p1))
      "3.2" (println (d03/p2))
+     "4.1" (println (d04/p1))
+     "4.2" (println (d04/p2))
      (.println *err* "Error."))))
