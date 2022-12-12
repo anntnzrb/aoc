@@ -21,12 +21,12 @@
    "A Y" (+ (moves "PAPER")    (results "WIN"))
    "A Z" (+ (moves "SCISSORS") (results "LOSE"))
 
-             ;; PAPER
+   ;; PAPER
    "B X" (+ (moves "ROCK")     (results "LOSE"))
    "B Y" (+ (moves "PAPER")    (results "DRAW"))
    "B Z" (+ (moves "SCISSORS") (results "WIN"))
 
-             ;; SCISSORS
+    ;; SCISSORS
    "C X" (+ (moves "ROCK")     (results "WIN"))
    "C Y" (+ (moves "PAPER")    (results "LOSE"))
    "C Z" (+ (moves "SCISSORS") (results "DRAW"))})
@@ -37,12 +37,12 @@
    "A Y" (+ (moves "ROCK")     (results "DRAW"))
    "A Z" (+ (moves "PAPER")    (results "WIN"))
 
-             ;; PAPER
+   ;; PAPER
    "B X" (+ (moves "ROCK")     (results "LOSE"))
    "B Y" (+ (moves "PAPER")    (results "DRAW"))
    "B Z" (+ (moves "SCISSORS") (results "WIN"))
 
-             ;; SCISSORS
+   ;; SCISSORS
    "C X" (+ (moves "PAPER")    (results "LOSE"))
    "C Y" (+ (moves "SCISSORS") (results "DRAW"))
    "C Z" (+ (moves "ROCK")     (results "WIN"))})
