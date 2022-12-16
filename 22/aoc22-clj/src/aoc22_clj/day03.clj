@@ -9,31 +9,29 @@
 (defn split-string-half
   "Splits given string STR in half."
   [^String str]
-  (let [str-len     (count str)
-        half        (quot str-len 2)
-        first-half  (subs str 0 half)
-        second-half (subs str half str-len)]
-    [first-half second-half]))
+  (split-at (quot (count str) 2) str))
 
 (defn str-common-chars
-  "Returns a list containing the common characters between STR1 and STR2."
-  [^clojure.lang.PersistentList xs]
-  (->> xs
-       (map #(set %))
+  "Returns a collection containing the common characters of the elements of COLL."
+  [coll]
+  (->> coll
+       (map set)
        (apply set/intersection)
        (vec)))
 
 (def priorities
-  (zipmap "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" (range 1 53)))
+  (let [[abc-low abc-up] [(map char (range 97 123)) (map char (range 65 91))]
+        abc-full         (concat abc-low abc-up)
+        priorities-range (range 1 53)]
+    (zipmap abc-full priorities-range)))
 
 (defn p1
   "Part 1 solution."
   []
   (->> (str/split input #"\n")
-       (map #(split-string-half %))
-       (map #(str-common-chars %))
-       (flatten)
-       (map #(priorities %))
+       (map split-string-half)
+       (mapcat str-common-chars)
+       (map priorities)
        (apply +)))
 
 (defn p2
@@ -41,7 +39,6 @@
   []
   (->> (str/split input #"\n")
        (partition-all 3)
-       (map #(str-common-chars %))
-       (flatten)
-       (map #(priorities %))
+       (mapcat str-common-chars)
+       (map priorities)
        (apply +)))

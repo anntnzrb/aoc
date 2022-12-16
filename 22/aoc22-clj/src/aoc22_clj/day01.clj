@@ -4,37 +4,24 @@
 
 (def input (util/day-input "01" :sample true))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Auxiliary
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defn stringv-to-intv
-  "Converts a collection COLL of strings to integers."
-  [coll]
-  (mapv read-string coll))
-
 (defn sum-calories-per-elf
   "Returns a vector with the sums of each elf's calories."
-  []
+  [input]
   (->> (str/split input #"\n\n")
-       (mapv #(str/split % #"\n"))
-       (mapv #(stringv-to-intv %))
-       (mapv #(apply + %))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Solutions
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+       (map #(str/split % #"\n"))
+       (map #(util/stringv-to-intv %))
+       (map #(apply + %))))
 
 (defn p1
   "Part 1 solution."
   []
-  (->> (sum-calories-per-elf)
+  (->> (sum-calories-per-elf input)
        (apply max)))
 
 (defn p2
   "Part 2 solution."
   []
-  (->> (sum-calories-per-elf)
-       (sort-by -)
+  (->> (sum-calories-per-elf input)
+       (sort >)
        (take 3)
        (apply +)))

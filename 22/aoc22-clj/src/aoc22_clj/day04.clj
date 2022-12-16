@@ -8,19 +8,18 @@
 (defn gen-range
   "Generates a collection given a range from STR."
   [^String str]
-  (let [split (str/split str #"-")
-        x     (read-string (get split 0))
-        y     (read-string (get split 1))]
-    (range x (+ y 1))))
+  (let [split       (str/split str #"-")
+        [start end] (map #(Integer/valueOf %) split)]
+    (range start (+ end 1))))
 
 (defn gen-range2
   "Wrapper around gen-range, given collection COLL."
   [coll]
   (->> coll
-       (map #(gen-range %))
-       (map #(set %))))
+       (map gen-range)
+       (map set)))
 
-(defn bidirectional-subset?
+(defn viceversa-subset?
   "Check if S1 is subset of S2 and viceversa."
   [s1 s2]
   (or
@@ -31,13 +30,13 @@
   []
   (->> (str/split input #"\n")
        (map #(str/split % #","))
-       (map #(gen-range2 %))))
+       (map gen-range2)))
 
 (defn p1
   "Part 1 solution."
   []
   (->> (common)
-       (map #(bidirectional-subset? (first %) (second %)))
+       (map #(viceversa-subset? (first %) (second %)))
        (filter true?)
        (count)))
 

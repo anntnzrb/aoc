@@ -1,6 +1,5 @@
 (ns aoc22-clj.day06
-  (:require [aoc22-clj.util :as util]
-            [clojure.string :as str]))
+  (:require [aoc22-clj.util :as util]))
 
 (def input (util/day-input "06" :sample true))
 
