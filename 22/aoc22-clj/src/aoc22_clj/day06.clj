@@ -2,10 +2,7 @@
   (:require [aoc22-clj.util :as util]
             [clojure.string :as str]))
 
-(def input
-  (let [day     "06"
-        sample? true]
-    (str/trim-newline (util/day-input (str day (when sample? "-sample"))))))
+(def input (util/day-input "06" :sample true))
 
 (defn find-marker
   [str marker-len]

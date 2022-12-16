@@ -2,10 +2,7 @@
   (:require [aoc22-clj.util :as util]
             [clojure.string :as str]))
 
-(def input
-  (let [day     "01"
-        sample? true]
-    (util/day-input (str day (when sample? "-sample")))))
+(def input (util/day-input "01" :sample true))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Auxiliary

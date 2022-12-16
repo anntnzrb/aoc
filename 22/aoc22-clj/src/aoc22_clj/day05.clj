@@ -2,10 +2,7 @@
   (:require [aoc22-clj.util :as util]
             [clojure.string :as str]))
 
-(def input
-  (let [day     "05"
-        sample? false]
-    (util/day-input (str day (when sample? "-sample")))))
+(def input (util/day-input "05" :sample true))
 
 (defn strings-to-ints
   "Converts a collection COLL of strings to integers."

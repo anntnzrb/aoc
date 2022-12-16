@@ -3,10 +3,7 @@
             [clojure.string :as str]
             [clojure.set :as set]))
 
-(def input
-  (let [day     "04"
-        sample? true]
-    (util/day-input (str day (when sample? "-sample")))))
+(def input (util/day-input "04" :sample true))
 
 (defn gen-range
   "Generates a collection given a range from STR."

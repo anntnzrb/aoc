@@ -1,10 +1,9 @@
 (ns aoc22-clj.util
   (:require
-   [clojure.java.io :as io]))
+   [clojure.java.io :refer [resource]]))
 
 (defn day-input
   "Reads file DAY in resources folder."
-  [day & sample?]
-  (slurp (io/resource (format
-                       "day%s.in"
-                       (if sample? (str day "-sample") day)))))
+  [day & {:keys [sample]}]
+  (let [suffix (if sample "-sample" "")]
+    (slurp (resource (str "day" day suffix ".in")))))

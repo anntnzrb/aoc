@@ -4,10 +4,7 @@
    [clojure.set    :as set]
    [clojure.string :as str]))
 
-(def input
-  (let [day     "03"
-        sample? true]
-    (util/day-input (str day (when sample? "-sample")))))
+(def input (util/day-input "03" :sample true))
 
 (defn split-string-half
   "Splits given string STR in half."
