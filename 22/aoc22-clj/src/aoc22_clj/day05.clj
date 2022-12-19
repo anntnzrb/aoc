@@ -1,51 +1,51 @@
 (ns aoc22-clj.day05
-  (:require [aoc22-clj.util :as util]
+  (:require [clojure.test :refer [deftest is testing]]
+            [aoc22-clj.util :as util]
             [clojure.string :as str]))
 
-(def input (util/day-input "05" :sample true))
+(def input
+  (let [sample?               true
+        input                 (util/day-input "05" :sample sample?)
+        [stacks instructions] (str/split input #"\n\n")
+        gen-stacks            (fn [s] (->> (str/split s #"\n")
+                                           pop
+                                           (apply mapv str)
+                                           (map #(re-find #"[A-Z]+" %))
+                                           (filter some?)
+                                           (map #(apply list %))
+                                           (into [()])))
+        gen-instructions      (fn [i] (->> (str/split i #"\n")
+                                           (map #(re-seq #"\d+" %))
+                                           (map util/stringv-to-intv)))]
 
-(defn strings-to-ints
-  "Converts a collection COLL of strings to integers."
-  [coll]
-  (map read-string coll))
-
-(def stacks ['()
-             '(\Q \F \L \S \R)
-             '(\T \P \G \Q \Z \N)
-             '(\B \Q \M \S)
-             '(\Q \B \C \H \J \Z \G \T)
-             '(\S \F \N \B \M \H \P)
-             '(\G \V \L \S \N \Q \C \P)
-             '(\F \C \W)
-             '(\M \P \V \W \Z \G \H \Q)
-             '(\R \N \C \L \D \Z \G)])
-
-(def instructions (->> (str/split (get (str/split input #"\n\n") 1) #"\n")
-                       (map #(re-seq #"\d+" %))
-                       (map strings-to-ints)))
+    {:sample sample?
+     :stacks       (gen-stacks stacks)
+     :instructions (gen-instructions instructions)}))
 
 (defn apply-moves
-  [stacks [moves from to]]
-  (loop [source (stacks from)
-         target (stacks to)
-         moves  moves]
-    (if (pos? moves)
-      (recur
-       (pop source)
-       (conj target (peek source))
-       (dec moves))
-      (assoc stacks from source to target))))
+  [stacks instructions]
+  (let [[moves from to] instructions]
+    (loop [source (stacks from)
+           target (stacks to)
+           moves  moves]
+      (if (pos? moves)
+        (recur
+         (pop source)
+         (conj target (peek source))
+         (dec moves))
+        (assoc stacks from source to target)))))
 
 (defn apply-moves'
-  [stacks [moves from to]]
-  (let [source (drop moves (stacks from))
+  [stacks instructions]
+  (let [[moves from to] instructions
+        source (drop moves (stacks from))
         target (flatten (conj (stacks to) (take moves (stacks from))))]
     (assoc stacks from source to target)))
 
 (defn p1
   "Part 1 solution."
   []
-  (->> (reduce apply-moves stacks instructions)
+  (->> (reduce apply-moves (:stacks input) (:instructions input))
        (filter not-empty)
        (map peek)
        (apply str)))
@@ -53,7 +53,17 @@
 (defn p2
   "Part 2 solution."
   []
-  (->> (reduce apply-moves' stacks instructions)
+  (->> (reduce apply-moves' (:stacks input) (:instructions input))
        (filter not-empty)
        (map first)
        (apply str)))
+
+(deftest p1-test
+  (testing "Part 1 Test"
+    (if (:sample input)
+      (do
+        (is (= (p1) "CMZ"))
+        (is (= (p2) "MCD")))
+      (do
+        (is (= (p1) "FZCMJCRHZ"))
+        (is (= (p2) "JSDHQMZGF"))))))
