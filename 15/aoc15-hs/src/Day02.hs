@@ -1,5 +1,3 @@
-{-# LANGUAGE RecordWildCards #-}
-
 module Day02 where
 
 import Lib (wordsWhen)
@@ -23,10 +21,10 @@ parseDimensions s = Dimensions l w h
 -- box.  The smallest face area is added as well to account for the wrapping
 -- paper needed to cover the box.
 calcSurfacesArea :: Dimensions -> Int
-calcSurfacesArea Dimensions {..} = 2 * sum sides + smallestSide
+calcSurfacesArea (Dimensions l w h) = 2 * sum sides + smallestSide
   where
     sides :: [Int]
-    sides = [length * width, width * height, height * length]
+    sides = [l * w, w * h, h * l]
 
     smallestSide :: Int
     smallestSide = minimum sides
@@ -42,7 +40,7 @@ calcWrappingRibbon (Dimensions l w h) = 2 * minimum [l + w, w + h, h + l]
 -- | Calculates the amount of ribbon needed for the bow of a box with the given
 -- dimensions.
 calcBowRibbon :: Dimensions -> Int
-calcBowRibbon Dimensions {..} = length * width * height
+calcBowRibbon (Dimensions l w h) = l * w * h
 
 -- | Calculates the total amount of ribbon needed for a gift box, including both
 -- the wrapping and the bow.
