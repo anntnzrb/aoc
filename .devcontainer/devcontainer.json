@@ -1,0 +1,26 @@
+{
+	"name": "Ubuntu",
+	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+	"features": {
+		// --------------------------------------------------------------------
+		// Haskell
+		// --------------------------------------------------------------------
+		// https://www.snoyman.com/base
+		"ghcr.io/devcontainers-contrib/features/haskell:2": {
+			"installHLS": true,
+			"downgradeGhcToSupportHls": true,
+			"adjustBash": true,
+			"ghcVersion": "9.2.8",
+			"cabalVersion": "3.6.2.0",
+			"globalPackages": "hlint hspec"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				// haskell
+				"haskell.haskell"
+			]
+		}
+	}
+}
